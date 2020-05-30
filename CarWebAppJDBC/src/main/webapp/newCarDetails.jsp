@@ -18,7 +18,7 @@
                 out.print(request.getAttribute("failMessage"));
             } else {
                 Car car = (Car) request.getAttribute("myCar");
-                 if (car != null) {%>
+                if (car != null) {%>
         <h1>New Car details:</h1>
         <ul>
             <%= "<li> ID: " + car.getId() + "</li>"%>

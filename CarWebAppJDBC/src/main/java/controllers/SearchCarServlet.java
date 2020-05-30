@@ -38,7 +38,7 @@ public class SearchCarServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SearchCarServlet</title>");            
+            out.println("<title>Servlet SearchCarServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SearchCarServlet at " + request.getContextPath() + "</h1>");
@@ -59,7 +59,7 @@ public class SearchCarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -73,7 +73,7 @@ public class SearchCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Read params from request
         String carid = request.getParameter("carid"); // tested
         // BL
