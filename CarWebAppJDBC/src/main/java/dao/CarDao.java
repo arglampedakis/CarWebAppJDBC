@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Car;
@@ -44,6 +45,38 @@ public class CarDao {
         return c;
     }
 
+    //insert car and get back the id of the inserted row
+    public int insertCarGetId(String plate, int horsepower) {
+        DBUtils dbu = new DBUtils();
+        Connection con = dbu.getConPool();
+        int id = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement("INSERT INTO Car (plate, horsepower) VALUES(? , ?)", Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, plate);
+            ps.setInt(2, horsepower);
+
+            ps.executeUpdate();
+
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                id =generatedKeys.getInt(1);
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return id;
+
+    }
+
+    //not currently in use - alternative way to insert . returns true (if rows affected >0 )
     public boolean insertCar(String plate, int horsepower) {
         DBUtils dbu = new DBUtils();
         Connection con = dbu.getConPool();
@@ -75,6 +108,7 @@ public class CarDao {
 
     }
 
+    //not currently in use. Fetch car by Plate and Horsepower
     public Car fetchCarByPlateAndHorsepower(String plate, int horsepower) {
         Car c = null;
         DBUtils dbu = new DBUtils();

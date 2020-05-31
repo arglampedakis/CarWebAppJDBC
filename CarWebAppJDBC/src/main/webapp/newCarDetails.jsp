@@ -19,6 +19,7 @@
             } else {
                 Car car = (Car) request.getAttribute("myCar");
                 if (car != null) {%>
+        Successfully registered!
         <h1>New Car details:</h1>
         <ul>
             <%= "<li> ID: " + car.getId() + "</li>"%>

@@ -78,12 +78,27 @@ public class InsertCarServlet extends HttpServlet {
         String horsepower = request.getParameter("horsepower");
         // BL
         CarDao cardao = new CarDao();
+        /*
+        // Alternative way - insert into DB
         boolean success = cardao.insertCar(plate, Integer.parseInt(horsepower));
+        // if inserted - success = true, else false
         if (success) {
+        // search car by Plate and Horsepower given by user
             Car car = cardao.fetchCarByPlateAndHorsepower(plate, Integer.parseInt(horsepower));
             request.setAttribute("myCar", car);
         } else {
             request.setAttribute("failMessage", "Something went wrong!");
+        }
+        */
+        Car car = new Car();
+        int id = cardao.insertCarGetId(plate, Integer.parseInt(horsepower));
+        if (id!= 0) {
+            car.setId(id);
+            car.setPlate(plate);
+            car.setHorsepower(Integer.parseInt(horsepower));
+            request.setAttribute("myCar", car);
+        }else {
+            request.setAttribute("failMessage", "Something went wrong! Could be that the plate already exists.");
         }
         // Show jsp
         RequestDispatcher rd = request.getRequestDispatcher("newCarDetails.jsp");
